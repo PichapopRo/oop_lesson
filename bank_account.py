@@ -1,18 +1,22 @@
 class AccountDB:
+    # Account operation class
     def __init__(self):
         self.account_database = []
 
+    # Insert account into account_database
     def insert(self, account):
         index = self.search_public(account.account_number)
         if index == -1:
             self.account_database.append(account)
 
+    # search for an account publicly
     def search_public(self, account_num):
         for account in self.account_database:
             if account.account_number == account_num:
                 return account
         return None
 
+    # search account privately
     def __search_private(self, account_num):
         for i in range(len(self.account_database)):
             if self.account_database[i].account_number == account_num:
@@ -32,6 +36,7 @@ class AccountDB:
         return s
 
 
+# Deposit and with draw money from the account
 class Account:
     def __init__(self, num, type, account_name, balance):
         self.account_number = num
