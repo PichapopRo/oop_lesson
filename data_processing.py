@@ -21,9 +21,15 @@ class DB:
         self.database = []
 
     def insert(self, table):
+        """
+        Insert table into database
+        """
         self.database.append(table)
 
     def search(self, table_name):
+        """
+        Search item in the database
+        """
         for table in self.database:
             if table.table_name == table_name:
                 return table
@@ -31,7 +37,6 @@ class DB:
 
 
 import copy
-
 
 class Table:
     def __init__(self, table_name, table):
@@ -102,3 +107,18 @@ my_table3 = my_table1.join(my_table2, 'country')
 my_table3_filtered = my_table3.filter(lambda x: x['EU'] == 'no').filter(
     lambda x: float(x['temperature']) < 5.0)
 print(my_table3_filtered.table)
+
+my_table3_eu = my_table3.filter(lambda x: x["EU"] == "yes" and x["coastline"] == "no")
+print(my_table3_eu.table)
+print(min([float(x["temperature"]) for x in my_table3_eu.table]))
+print(max([float(x["temperature"]) for x in my_table3_eu.table]))
+# temperature_list_eu = []
+# for j in countries:
+#     if j.get('EU') == "yes" and j.get('coastline') == "no":
+#         temperature_list_eu.append(j.get('temperature'))
+# print(temperature_list_eu)
+latitude_list = []
+for i in cities:
+    latitude_list.append(i.get("latitude"))
+print(f"maximum latitude : {max(latitude_list)}")
+print(f"minimum latitude : {min(latitude_list)}")
